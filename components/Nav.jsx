@@ -5,15 +5,15 @@ import { useEffect, useState } from 'react';
 import { signIn, signOut, useSession, getProviders } from 'next-auth/react';
 
 const Nav = () => {
-  const isLoggedIn = true;
+  const { data: session } = useSession();
   const [providers, setProviders] = useState(null);
   const [toggleDropdown, setToggleDropdown] = useState(false);
   useEffect(() => {
-    const setProviders = async () => {
+    const setUpProviders = async () => {
       const response = await getProviders();
       setProviders(response);
     };
-    setProviders();
+    setUpProviders();
   }, []);
 
   return (
@@ -30,7 +30,7 @@ const Nav = () => {
       </Link>
       {/* Desktop Navigation */}
       <div className='sm:flex hidden'>
-        {isLoggedIn ? (
+        {session?.user ? (
           <div className='flex gap-3 md:gap-5'>
             <Link href='/create-prompt' className='black_btn'>
               Create Post
@@ -51,22 +51,24 @@ const Nav = () => {
         ) : (
           <>
             {providers &&
-              Object.values.map(provider => {
-                <button
-                  type='button'
-                  key={provider.name}
-                  onClick={() => signIn(provider.id)}
-                  className='black_btn'
-                >
-                  Sign In
-                </button>;
+              Object.values(providers).map(provider => {
+                return (
+                  <button
+                    type='button'
+                    key={provider.name}
+                    onClick={() => signIn(provider.id)}
+                    className='black_btn'
+                  >
+                    Sign In
+                  </button>
+                );
               })}
           </>
         )}
       </div>
       {/* Mobile Navigation */}
       <div className='sm:hidden flex relative'>
-        {isLoggedIn ? (
+        {session?.user ? (
           <div className='flex'>
             <Image
               src='/assets/images/logo.svg'
@@ -108,15 +110,17 @@ const Nav = () => {
         ) : (
           <>
             {providers &&
-              Object.values.map(provider => {
-                <button
-                  type='button'
-                  key={provider.name}
-                  onClick={() => signIn(provider.id)}
-                  className='black_btn'
-                >
-                  Sign In
-                </button>;
+              Object.values(providers).map(provider => {
+                return (
+                  <button
+                    type='button'
+                    key={provider.name}
+                    onClick={() => signIn(provider.id)}
+                    className='black_btn'
+                  >
+                    Sign In
+                  </button>
+                );
               })}
           </>
         )}
