@@ -77,6 +77,7 @@ const Nav = () => {
               className='rounded-full'
               alt='profile'
               onClick={() => setToggleDropdown(prev => !prev)}
+              style={{ cursor: 'pointer' }}
             />
             {toggleDropdown && (
               <div className='dropdown'>
