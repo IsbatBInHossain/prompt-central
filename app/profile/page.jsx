@@ -21,7 +21,9 @@ const ProfilePage = () => {
     }
   }, []);
 
-  const handleEdit = () => {};
+  const handleEdit = post => {
+    router.push(`update-prompt?id=${post._id}`);
+  };
   const handleDelete = async () => {};
 
   return (

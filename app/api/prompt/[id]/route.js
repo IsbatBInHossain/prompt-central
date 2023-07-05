@@ -26,7 +26,9 @@ export const PATCH = async (req, { params }) => {
     if (!oldPrompt) {
       return new Response('Prompt not found', { status: 404 });
     }
-    oldPrompt = { ...oldPrompt, prompt, tag };
+    oldPrompt.prompt = prompt;
+    oldPrompt.tag = tag;
+
     oldPrompt.save();
 
     return new Response(JSON.stringify(oldPrompt), { status: 200 });
