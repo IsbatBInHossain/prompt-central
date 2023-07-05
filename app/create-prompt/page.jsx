@@ -28,6 +28,12 @@ const CreatePrompt = () => {
         }),
       });
       if (res.ok) {
+        // Fetch the updated list of posts
+        const postsResponse = await fetch(
+          `api/users/${session?.user.id}/posts`
+        );
+        const postsData = await postsResponse.json();
+        localStorage.setItem('posts', JSON.stringify(postsData)); // Update stored posts in local storage
         router.push('/');
       }
     } catch (error) {
