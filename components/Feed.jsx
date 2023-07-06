@@ -22,17 +22,39 @@ const Feed = () => {
   const [searchText, setSearchText] = useState('');
   const [posts, setPosts] = useState([]);
 
+  // filter Username
+  const filterByUsername = (data, text) => {
+    return data.filter(post =>
+      post?.creator.username.includes(text.toLowerCase())
+    );
+  };
+  // filter by Tags
+  const filterByTag = (data, tag) => {
+    return data.filter(post => post?.tag.includes(tag.toLowerCase()));
+  };
+
+  const searchPosts = text => {
+    const data = JSON.parse(localStorage.getItem('allPosts'));
+    const nameFilteredPosts = filterByUsername(data, text);
+    const tagFilteredPosts = filterByTag(data, text);
+    const concatedPosts = nameFilteredPosts.concat(tagFilteredPosts);
+    const filteredPosts = [...new Set(concatedPosts)];
+    setPosts(filteredPosts);
+  };
+
   const handleSearch = e => {
-    setSearchText(e.target.value);
+    const searchTerm = e.target.value;
+    setSearchText(searchTerm);
+    searchPosts(searchTerm);
   };
 
   useEffect(() => {
-    const fetchPosts = async () => {
+    (async () => {
       const res = await fetch('api/prompt');
       const data = await res.json();
       setPosts(data);
-    };
-    fetchPosts();
+      localStorage.setItem('allPosts', JSON.stringify(data));
+    })();
   }, []);
 
   return (
