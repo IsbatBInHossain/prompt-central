@@ -6,12 +6,21 @@ import { usePathname, useRouter } from 'next/navigation';
 const PromptCard = ({ post, handleTagClick, handleEdit, handleDelete }) => {
   const [copied, setCopied] = useState('');
   const { data: session } = useSession();
+  const router = useRouter();
   const pathName = usePathname();
 
   const handleCopy = () => {
     setCopied(post.prompt);
     navigator.clipboard.writeText(post.prompt);
     setTimeout(() => setCopied(''), 3000);
+  };
+
+  const handleProfileClick = () => {
+    if (post.creator._id === session?.user.id) {
+      router.push('/profile');
+    } else {
+      router.push(`/profile/${post.creator._id}`);
+    }
   };
 
   const separatedTags = () => {
@@ -31,6 +40,7 @@ const PromptCard = ({ post, handleTagClick, handleEdit, handleDelete }) => {
         <div className='flex-1 flex justify-start items-center gap-3 cursor-pointer '>
           <Image
             src={post.creator?.image}
+            onClick={handleProfileClick}
             alt='user_image'
             width={40}
             height={40}
@@ -49,8 +59,8 @@ const PromptCard = ({ post, handleTagClick, handleEdit, handleDelete }) => {
           <Image
             src={
               copied === post.prompt
-                ? 'assets/icons/tick.svg'
-                : 'assets/icons/copy.svg'
+                ? '/assets/icons/tick.svg'
+                : '/assets/icons/copy.svg'
             }
             width={12}
             height={12}
