@@ -48,6 +48,14 @@ const Feed = () => {
     searchPosts(searchTerm);
   };
 
+  const handleTagClick = tag => {
+    const tagText = tag.replace('#', '');
+    setSearchText(tagText);
+    const data = JSON.parse(localStorage.getItem('allPosts'));
+    const tagFilteredPosts = filterByTag(data, tagText);
+    setPosts(tagFilteredPosts);
+  };
+
   useEffect(() => {
     (async () => {
       const res = await fetch('api/prompt');
@@ -69,7 +77,7 @@ const Feed = () => {
           className='search_input peer'
         />
       </form>
-      <PromptCardList data={posts} handleTagClick={() => {}} />
+      <PromptCardList data={posts} handleTagClick={handleTagClick} />
     </section>
   );
 };
