@@ -22,11 +22,10 @@ const Nav = () => {
         <Image
           src='/assets/images/logo.svg'
           alt='logo'
-          width={30}
-          height={30}
-          className='object-contain'
+          width={200}
+          height={100}
+          className='object-contain logo'
         />
-        <p className='logo_text'>Prompt Central</p>
       </Link>
       {/* Desktop Navigation */}
       <div className='sm:flex hidden'>
