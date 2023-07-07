@@ -5,6 +5,7 @@ import Provider from '@components/Provider';
 export const metadata = {
   title: 'Prompt Central',
   description: 'Discover and share prompts',
+  icon: '/favicon.ico',
 };
 
 export default function RootLayout({ children }) {
