@@ -12,6 +12,10 @@ Welcome to Prompt Central, an AI prompt sharing platform built with Next.js and 
 - **Google OAuth2:** Sign up and log in to Prompt Central using your Google account for a seamless and secure authentication experience.
 - **MongoDB:** Utilize MongoDB as the database for storing user data and prompt information.
 
+## Live Demo
+
+You can check out the live demo on https://prompt-central.vercel.app/
+
 ## Contact
 
 If you have any questions, suggestions, or feedback, please feel free to reach out to us at [isbatbinhossain@gmail.com](mailto:isbatbinhossain@gmail.com).
